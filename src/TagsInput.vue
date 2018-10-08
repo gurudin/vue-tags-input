@@ -1,8 +1,6 @@
 <template>
   <div :class="bsStyle" @click="blur">
-    <span class="label" :class="'label-' + labelStyle" v-for="item in dataValue">{{item}} <i data-role="remove"></i></span>
-
-    <input type="text" :size="inputSize" :placeholder="placeholder" v-model="currentValue" @keyup="keyAction" ref="tagsinput">
+    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="remove(inx)"></i></span><input type="text" :size="inputSize" :placeholder="placeholder" v-model="currentValue" @keyup="keyAction" ref="tagsinput" />
   </div>
 </template>
 
@@ -31,6 +29,7 @@ export default {
   },
   data() {
     return {
+      tagsValue: Array,
       currentValue: ''
     };
   },
@@ -50,6 +49,9 @@ export default {
     blur() {
       this.$refs.tagsinput.focus();
     },
+    remove(inx) {
+      this.tagsValue.splice(inx, 1);
+    },
     keyAction(event) {
       if (this.currentValue == '' && (event.key == 'ArrowLeft' || event.key == 'ArrowRight')) {
         let current = event.target;
@@ -64,7 +66,18 @@ export default {
     }
   },
   created() {
-    console.log(this.dataValue);
+    if (typeof this.dataValue == 'undefined' || this.dataValue == '') {
+      this.tagsValue = [];
+    } else {
+      var tagsValue = [];
+      this.dataValue.forEach((row, inx) => {
+        tagsValue[inx] = { tag: row, loading: false };
+      });
+
+      this.tagsValue = tagsValue;
+    }
+
+    console.log(tagsValue);
   }
 }
 </script>
