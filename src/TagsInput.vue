@@ -1,10 +1,7 @@
 <template>
-
   <div :class="bsStyle" @click="blur">
-    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="removeTag(inx)"></i></span>
-    <input type="text" :size="inputSize" :placeholder="placeholder" v-model.trim="currentValue" @keyup="keyAction" ref="tagsinput" />
+    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="removeTag(inx)"></i></span><input type="text" :size="inputSize" :placeholder="placeholder" v-model.trim="currentValue" @keyup="keyAction" ref="tagsinput" />
   </div>
-  
 </template>
 
 <script>

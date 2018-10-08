@@ -1,16 +1,23 @@
 {
   "name": "vue-tags-input",
   "version": "1.0.0",
-  "description": "VueJs for tags input.",
+  "description": "A Vue.js project",
   "author": "gaoxiang <hc.gaoxiang@gmail.com>",
-  "private": true,
+  "private": false,
+  "main": "dist/vue-tags-input.min.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "license": "MIT",
   "dependencies": {
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-tags-input": "../vue-tags-input/vue-tags-input-v1.0.0.tgz"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
