@@ -1,6 +1,7 @@
 <template>
   <div :class="bsStyle" @click="blur">
-    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="remove(inx)"></i></span><input type="text" :size="inputSize" :placeholder="placeholder" v-model="currentValue" @keyup="keyAction" ref="tagsinput" />
+    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="remove(inx)"></i></span>
+    <input type="text" :size="inputSize" :placeholder="placeholder" v-model.trim="currentValue" @keyup="keyAction" ref="tagsinput" />
   </div>
 </template>
 
@@ -36,7 +37,12 @@ export default {
   computed: {
     inputSize() {
       if (this.currentValue != '') {
-        return this.currentValue.length;
+        var reg = /[\u4e00-\u9fa5\uF900-\uFA2D]/; 
+        if (reg.test(this.currentValue)) {
+          return this.currentValue.length * 2;
+        } else {
+          return this.currentValue.length;
+        }
       }
 
       return typeof this.placeholder == 'undefined' ? 1 : this.placeholder.length;
@@ -62,6 +68,23 @@ export default {
         this.blur();
 
         return false;
+      }
+      
+      if (event.key == 'Enter' || event.key == ',' || event.key == 'Meta') {
+        let _this = this;
+        let tmpTagArr = [];
+        tmpTagArr = this.currentValue.split(',');
+
+        tmpTagArr.forEach(arr => {
+          let tmpArr = arr.split('，');
+          tmpArr.forEach(row => {
+            if (row != '') {
+              _this.tagsValue.push({ tag: row, loading: false});
+            }
+          });
+        });
+
+        this.currentValue = '';
       }
     }
   },
