@@ -8,14 +8,17 @@
       <tags-input 
        :bootstrap="3"
        placeholder="Bootstrap 3"
-       :data-value="[1, 2, 3]"></tags-input>
+       :data-value="[1, 2, 3]"
+       label-style="warning"></tags-input>
     </div>
 
     <div>
       <h4>bs4</h4>
       <tags-input 
        :bootstrap="4"
-       placeholder="Bootstrap 4"></tags-input>
+       placeholder="Bootstrap 4"
+       :data-value="[1, 2, 3]"
+       label-style="dark"></tags-input>
     </div>
   </div>
 </template>

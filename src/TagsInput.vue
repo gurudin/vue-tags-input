@@ -2,7 +2,7 @@
   <div :class="bsStyle" @click="blur">
     <span class="label" :class="'label-' + labelStyle" v-for="item in dataValue">{{item}} <i data-role="remove"></i></span>
 
-    <input type="text" :placeholder="placeholder" ref="tagsinput">
+    <input type="text" :size="inputSize" :placeholder="placeholder" v-model="currentValue" @keyup="keyAction" ref="tagsinput">
   </div>
 </template>
 
@@ -29,7 +29,19 @@ export default {
       required: false
     }
   },
+  data() {
+    return {
+      currentValue: ''
+    };
+  },
   computed: {
+    inputSize() {
+      if (this.currentValue != '') {
+        return this.currentValue.length;
+      }
+
+      return typeof this.placeholder == 'undefined' ? 1 : this.placeholder.length;
+    },
     bsStyle() {
       return "input-tag-bs" + this.bootstrap;
     }
@@ -37,11 +49,22 @@ export default {
   methods: {
     blur() {
       this.$refs.tagsinput.focus();
+    },
+    keyAction(event) {
+      if (this.currentValue == '' && (event.key == 'ArrowLeft' || event.key == 'ArrowRight')) {
+        let current = event.target;
+        event.key == 'ArrowLeft'
+          ? (current.previousSibling != null ? current.previousSibling.before(current) : '')
+          : (current.nextSibling != null ? current.nextSibling.after(current) : '');
+
+        this.blur();
+
+        return false;
+      }
     }
   },
   created() {
     console.log(this.dataValue);
-    
   }
 }
 </script>
@@ -57,7 +80,7 @@ export default {
 }
 .input-tag-bs3 .label, .input-tag-bs4 .label {
   display: block;
-  float: left;
+  /* float: left; */
   margin: 10px 0 0 10px;
 }
 
