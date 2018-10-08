@@ -1,13 +1,15 @@
 <template>
+
   <div :class="bsStyle" @click="blur">
-    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="remove(inx)"></i></span>
+    <span class="label" :class="'label-' + labelStyle" v-for="(item,inx) in tagsValue">{{item.tag}} <i data-role="remove" @click="removeTag(inx)"></i></span>
     <input type="text" :size="inputSize" :placeholder="placeholder" v-model.trim="currentValue" @keyup="keyAction" ref="tagsinput" />
   </div>
+  
 </template>
 
 <script>
 export default {
-  name: 'InputTag',
+  // name: 'InputTag',
   props: {
     bootstrap: {
       type: Number,
@@ -26,7 +28,11 @@ export default {
     dataValue: {
       type: null,
       required: false
-    }
+    },
+    callback: {
+      type: null,
+      required: false
+    },
   },
   data() {
     return {
@@ -55,9 +61,6 @@ export default {
     blur() {
       this.$refs.tagsinput.focus();
     },
-    remove(inx) {
-      this.tagsValue.splice(inx, 1);
-    },
     keyAction(event) {
       if (this.currentValue == '' && (event.key == 'ArrowLeft' || event.key == 'ArrowRight')) {
         let current = event.target;
@@ -79,13 +82,44 @@ export default {
           let tmpArr = arr.split('，');
           tmpArr.forEach(row => {
             if (row != '') {
-              _this.tagsValue.push({ tag: row, loading: false});
+              if (typeof _this.callback == 'function') {
+                let tagLen = _this.tagsValue.length;
+                _this.tagsValue.push({ tag: row, loading: true});
+
+                let res = _this.callback(row, tagLen);
+                
+                res == true ? _this.tagsValue[tagLen].loading = false : _this.tagsValue.splice(tagLen, 1);
+              } else {
+                _this.tagsValue.push({ tag: row, loading: false});
+              }
             }
           });
         });
 
         this.currentValue = '';
       }
+    },
+    removeTag(inx) {
+      this.tagsValue.splice(inx, 1);
+    },
+    setTag(tags) {
+      let tagsValue = [];
+      tags.forEach((row, inx) => {
+        tagsValue[inx] = { tag: row, loading: false};
+      });
+
+      this.tagsValue = tagsValue;
+    },
+    getTag() {
+      let tagsValue = [];
+      this.tagsValue.forEach(row => {
+        tagsValue.push(row.tag);
+      });
+
+      return tagsValue;
+    },
+    clearTag() {
+      this.tagsValue = [];
     }
   },
   created() {
@@ -99,8 +133,6 @@ export default {
 
       this.tagsValue = tagsValue;
     }
-
-    console.log(tagsValue);
   }
 }
 </script>
