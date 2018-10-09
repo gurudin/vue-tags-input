@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  // name: 'InputTag',
+  name: 'tagsInput',
   props: {
     bootstrap: {
       type: Number,
