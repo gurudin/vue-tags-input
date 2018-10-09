@@ -46,12 +46,11 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     new ExtractTextPlugin({
-      // filename: utils.assetsPath('css/[name].[contenthash].css'),
-      filename: utils.assetsPath('css/vue-tags-input.css'),
+      filename: 'vue-tags-input.css',
       // set the following option to `true` if you want to extract CSS from
       // codesplit chunks into this main css file as well.
       // This will result in *all* of your app's CSS being loaded upfront.
-      allChunks: true,
+      allChunks: false,
     }),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
