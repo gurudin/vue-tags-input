@@ -1,7 +1,7 @@
 {
-  "name": "vue-tags-input",
+  "name": "vue2-tags-input",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "VueJs for tags input.",
   "author": "gaoxiang <hc.gaoxiang@gmail.com>",
   "private": false,
   "main": "dist/vue-tags-input.min.js",
@@ -19,6 +19,21 @@
     "vue": "^2.5.2",
     "vue-tags-input": "../vue-tags-input/vue-tags-input-v1.0.0.tgz"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gurudin/vue-tags-input"
+  },
+  "keywords": [
+    "Bootstrap",
+    "Bootstrap 4",
+    "Bootstrap for Vue",
+    "Vue",
+    "Vue2",
+    "VueJS",
+    "Tag",
+    "Input",
+    "Components"
+  ],
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
