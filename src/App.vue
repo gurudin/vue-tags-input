@@ -39,6 +39,8 @@ export default {
   },
   methods: {
     bt4call(tag, inx) {
+      console.log(tag, inx);
+      
       var _this = this;
       setTimeout(() => {
         if (tag == 1) {

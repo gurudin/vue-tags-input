@@ -83,7 +83,7 @@ export default {
                 let tagLen = _this.tagsValue.length;
                 _this.tagsValue.push({ tag: row, loading: true});
 
-                let res = _this.callback(row, tagLen);
+                let res = _this.callback({action: 'add', value: row}, tagLen);
                 
                 res == true ? _this.tagsValue[tagLen].loading = false : _this.tagsValue.splice(tagLen, 1);
               } else {
@@ -97,7 +97,9 @@ export default {
       }
     },
     removeTag(inx) {
-      this.tagsValue.splice(inx, 1);
+      if (this.callback({action: 'remove', value: this.tagsValue[inx].tag}, inx)) {
+        this.tagsValue.splice(inx, 1);
+      }
     },
     setTag(tags) {
       let tagsValue = [];
