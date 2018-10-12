@@ -30,6 +30,10 @@ export default {
       type: null,
       required: false
     },
+    onChange: {
+      type: null,
+      required: false
+    },
   },
   data() {
     return {
@@ -89,6 +93,10 @@ export default {
               } else {
                 _this.tagsValue.push({ tag: row, loading: false});
               }
+
+              if (typeof _this.onChange == 'function') {
+                _this.onChange(_this.getTag())
+              }
             }
           });
         });
@@ -99,6 +107,10 @@ export default {
     removeTag(inx) {
       if (this.callback({action: 'remove', value: this.tagsValue[inx].tag}, inx)) {
         this.tagsValue.splice(inx, 1);
+      }
+
+      if (typeof this.onChange == 'function') {
+        this.onChange(this.getTag())
       }
     },
     setTag(tags) {
