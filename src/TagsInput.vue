@@ -105,7 +105,11 @@ export default {
       }
     },
     removeTag(inx) {
-      if (this.callback({action: 'remove', value: this.tagsValue[inx].tag}, inx)) {
+      if (typeof this.callback == 'function') {
+        if (this.callback({action: 'remove', value: this.tagsValue[inx].tag}, inx)) {
+          this.tagsValue.splice(inx, 1);
+        }
+      } else {
         this.tagsValue.splice(inx, 1);
       }
 
