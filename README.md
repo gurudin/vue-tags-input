@@ -42,4 +42,4 @@ HTML
 ``` html
 <tags-input placeholder="Tags input"></tags-input>
 ```
-[docs for vue-tags-input](http://vuejs.github.io/vue-loader)
+[docs for vue-tags-input](https://gurudin.github.io/vue-tags-input/)
