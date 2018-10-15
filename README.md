@@ -2,20 +2,44 @@
 
 > VueJs for tags input.
 
-## Build Setup
+## Installation
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
+- #### Available through:
+``` shell
+$ yarn add vue2-tags-input
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+``` shell
+$ npm install vue2-tags-input
+```
+
+- #### For Modules
+``` js
+import tagsInput from "vue-tags-input";
+import "vue-tags-input/dist/vue-tags-input.css";
+
+Vue.use(tagsInput)
+```
+
+- #### For ```<script>``` Include
+``` html
+<!-- CDNJS :: Vue (https://cdnjs.com/) -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/vue/2.5.2/vue.min.js"></script>
+
+<!-- Require js -->
+<script src="vue-tags-input.min.js"></script>
+
+<!-- Require css -->
+<link href="vue-tags-input.css" rel="stylesheet">
+
+<script>
+  Vue.component('tags-input', VueTagsInput.tagsInput);
+</script>
+```
+
+## Demo
+HTML
+``` html
+<tags-input placeholder="Tags input"></tags-input>
+```
+[docs for vue-tags-input](http://vuejs.github.io/vue-loader)
