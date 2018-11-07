@@ -1,4 +1,4 @@
-# vue-tags-input
+# [docs for vue-tags-input](https://gurudin.github.io/vue-tags-input/)
 
 > VueJs for tags input.
 
