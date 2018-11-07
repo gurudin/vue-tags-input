@@ -1,4 +1,4 @@
-# [docs for vue-tags-input](https://gurudin.github.io/vue-tags-input/)
+# [docs for vue-tags-input](https://gurudin.github.io/vue-tags-input/) [![NPM version](https://img.shields.io/npm/v/vue2-tags-input.svg)](https://www.npmjs.com/package/vue2-tags-input)
 
 > VueJs for tags input.
 
