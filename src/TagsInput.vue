@@ -1,25 +1,23 @@
 <template>
-  <div class="form-control" :style="boxStyle" @click="blur">
+  <span class="tags-box">
+    <div class="form-control" :style="boxStyle" @click="blur">
 
-    <span :class="'bg-'+labelStyle+' label-'+labelStyle" :style="badgeStyle" v-for="opt in dataValue">{{opt}} 
-      <button type="button" class="close" aria-label="Close" :style="removeStyle">
-        <i aria-hidden="true">&times;</i>
-      </button>
-    </span>
+      <span :class="'bg-'+labelStyle+' label-'+labelStyle" :style="badgeStyle" v-for="opt in dataValue">{{opt}} 
+        <button type="button" class="close" aria-label="Close" :style="removeStyle">
+          <i aria-hidden="true">&times;</i>
+        </button>
+      </span><input
+        type="text"
+        :style="inputStyle"
+        :placeholder="placeholder"
+        :size="inputSize"
+        v-model="currentValue"
+        @keyup="keyAction"
+        ref="tagsinput">
 
-    <input
-      type="text"
-      :style="inputStyle"
-      :placeholder="placeholder"
-      :size="inputSize"
-      v-model="currentValue"
-      @keyup="keyAction"
-      ref="tagsinput">
-
+    </div>
     <input type="hidden" :value="value">
-
-    {{dataValue}}
-  </div>
+  </span>
 </template>
 
 <script>
@@ -130,6 +128,17 @@ export default {
       this.$refs.tagsinput.focus();
     },
     keyAction(event) {
+      if (this.currentValue == '' && (event.key == 'ArrowLeft' || event.key == 'ArrowRight')) {
+        let current = event.target;
+        event.key == 'ArrowLeft'
+          ? (current.previousSibling != null ? current.previousSibling.before(current) : '')
+          : (current.nextSibling != null ? current.nextSibling.after(current) : '');
+
+        this.blur();
+        return false;
+      }
+
+      console.log(event);
       
     },
   }

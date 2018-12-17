@@ -53,8 +53,8 @@ export default {
 </script>
 
 <style>
-/* @import "https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css"; */
-@import "https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css";
+@import "https://cdn.bootcss.com/twitter-bootstrap/4.1.3/css/bootstrap.min.css";
+/* @import "https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css"; */
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
