@@ -2,8 +2,8 @@
   <span class="tags-box">
     <div class="form-control" :style="boxStyle" @click="blur">
 
-      <span :class="'bg-'+labelStyle+' label-'+labelStyle" :style="badgeStyle" v-for="opt in dataValue">{{opt}} 
-        <button type="button" class="close" aria-label="Close" :style="removeStyle">
+      <span :class="'bg-'+labelStyle+' label-'+labelStyle" :style="badgeStyle" v-for="(opt,inx) in dataValue">{{opt}} 
+        <button type="button" class="close" aria-label="Close" :style="removeStyle" @click="remove(inx)">
           <i aria-hidden="true">&times;</i>
         </button>
       </span><input
@@ -141,6 +141,21 @@ export default {
 
       if (event.key == 'Enter' || event.key == ',' || event.key == '，' || event.key == 'Meta') {
         this.setTags(this.currentValue);
+        this.currentValue = '';
+      }
+    },
+    remove(inx) {
+      if (typeof this.value == 'undefined') {
+        this.tags.splice(inx, 1);
+      } else {
+        if (typeof this.value == 'string') {
+          var tags = this.value.split(",");
+          tags.splice(inx, 1);
+          
+          this.$emit('input', tags.join(","));
+        } else {
+          this.value.splice(inx, 1);
+        }
       }
     },
     setTags(tags) {
