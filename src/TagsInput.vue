@@ -59,6 +59,18 @@ export default {
       default: 'info',
       required: false
     },
+    /**
+     * 是否去重复
+     *
+     * @type {Boolean}
+     *
+     * @required false
+     */
+    unique: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
   },
   data() {
     return {
@@ -172,14 +184,23 @@ export default {
       tagsArr = tagsArr.filter(n =>{ return n; });
 
       if (typeof this.value == 'undefined') {
-        this.tags = this.tags.concat(tagsArr);
+        this.tags = this.unique
+          ? Array.from(new Set(this.tags.concat(tagsArr)))
+          : this.tags.concat(tagsArr);
       } else {
         if (this.modelType == 'string') {
           var tmpTags = this.value == null || this.value == ''
             ? tagsArr.join(",")
             : this.value + "," + tagsArr.join(",");
+          
+          if (this.unique) {
+            let tmpUnique = Array.from(new Set(tmpTags.split(",")));
+            tmpTags = tmpUnique.join(",");
+          }
         } else {
-          var tmpTags = this.value.concat(tagsArr);
+          var tmpTags = this.unique
+            ? Array.from(new Set(this.value.concat(tagsArr)))
+            : this.value.concat(tagsArr);
         }
         
         this.$emit('input', tmpTags);

@@ -8,6 +8,7 @@
     <tagsInput
       v-model="options"
       labelStyle="primary"
+      unique
       ref='tags'></tagsInput>
     
     <br>
@@ -24,8 +25,8 @@ export default {
   name: 'App',
   data() {
     return {
-      options: ['PHP', 'Javascript', 'Vue'],
-      // options: 'PHP,JAVA,GO',
+      // options: ['PHP', 'Javascript', 'Vue'],
+      options: 'PHP,JAVA,GO',
     };
   },
   methods: {
