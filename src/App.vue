@@ -7,7 +7,11 @@
 
     <tagsInput
       v-model="options"
-      labelStyle="primary"></tagsInput>
+      labelStyle="primary"
+      ref='tags'></tagsInput>
+    
+    <br>
+    <button class="btn btn-info btn-sm" @click="setTags()">@setTags()</button>
   </div>
 </template>
 
@@ -23,28 +27,9 @@ export default {
     };
   },
   methods: {
-    // bt4call(tag, inx) {
-    //   console.log(tag, inx);
-      
-    //   var _this = this;
-    //   setTimeout(() => {
-    //     if (tag == 1) {
-    //       _this.$refs.bs4.removeTag(inx)
-    //     }
-    //   }, 1000);
-
-    //   return true;
-    // },
-    // setTag() {
-    //   var tags = ['D', 'E', 'F'];
-    //   this.$refs.bs4.setTag(tags);
-    // },
-    // getTag() {
-    //   console.log(this.$refs.bs4.getTag());
-    // },
-    // clearTag() {
-    //   this.$refs.bs4.clearTag();
-    // }
+    setTags() {
+      this.$refs.tags.setTags('a,b,,');
+    }
   },
   components: {
     TagsInput

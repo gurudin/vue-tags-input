@@ -34,7 +34,6 @@ export default {
     value: {
       type: null,
       required: false,
-      default: ''
     },
     /**
      * 占位描述
@@ -63,23 +62,24 @@ export default {
   },
   data() {
     return {
+      tags: [],
       currentValue: '',
     };
   },
   computed: {
-    dataValue: {
-      get() {
-        return typeof this.value == 'string'
-          ? this.value.split(",")
-          : this.value;
-      },
-      set() {
-
+    dataValue() {
+      if (typeof this.value == 'undefined') {
+        return this.tags;
       }
+      
+      return typeof this.value == 'string'
+        ? this.value.split(",")
+        : this.value;
     },
     boxStyle() {
       return {
-        'padding': '0 12px !important',
+        'padding': '4px 12px 0 12px',
+        'height': 'auto !important',
       };
     },
     inputStyle() {
@@ -95,7 +95,8 @@ export default {
       return {
         'border-radius': '5px',
         'padding': '5px 9px',
-        'margin': '-2px 3px 0 0',
+        'margin-bottom': '5px',
+        'margin-right': '4px',
         'display': 'inline-block',
         'font-size': '12px',
         'font-weight': '700',
@@ -138,9 +139,31 @@ export default {
         return false;
       }
 
-      console.log(event);
-      
+      if (event.key == 'Enter' || event.key == ',' || event.key == '，' || event.key == 'Meta') {
+        this.setTags(this.currentValue);
+      }
     },
+    setTags(tags) {
+      if (typeof tags == 'string') {
+        var tagsArr = tags.split(/,|，/);
+      } else {
+        var tagsArr = tags;
+      }
+
+      tagsArr = tagsArr.filter(n =>{ return n; });
+
+      if (typeof this.value == 'undefined') {
+        this.tags = this.tags.concat(tagsArr);
+      } else {
+        if (typeof this.value == 'string') {
+          var tmpTags = this.value + "," + tagsArr.join(",");
+        } else {
+          var tmpTags = this.value.concat(tagsArr);
+        }
+        
+        this.$emit('input', tmpTags);
+      }
+    }
   }
 }
 </script>
