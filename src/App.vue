@@ -12,6 +12,7 @@
     
     <br>
     <button class="btn btn-info btn-sm" @click="setTags()">@setTags()</button>
+    <button class="btn btn-info btn-sm" @click="getTags()">@getTags()</button>
   </div>
 </template>
 
@@ -29,7 +30,11 @@ export default {
   methods: {
     setTags() {
       this.$refs.tags.setTags('a,b,,');
-    }
+    },
+    getTags() {
+      console.log(this.$refs.tags.getTags());
+      console.log(this.$refs.tags.getTags('string'));
+    },
   },
   components: {
     TagsInput

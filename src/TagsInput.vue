@@ -11,7 +11,7 @@
         :style="inputStyle"
         :placeholder="placeholder"
         :size="inputSize"
-        v-model="currentValue"
+        v-model.trim="currentValue"
         @keyup="keyAction"
         ref="tagsinput">
 
@@ -140,6 +140,9 @@ export default {
       }
 
       if (event.key == 'Enter' || event.key == ',' || event.key == '，' || event.key == 'Meta') {
+        if (this.currentValue == '') {
+          return false;
+        }
         this.setTags(this.currentValue);
         this.currentValue = '';
       }
@@ -151,7 +154,7 @@ export default {
         if (typeof this.value == 'string') {
           var tags = this.value.split(",");
           tags.splice(inx, 1);
-          
+
           this.$emit('input', tags.join(","));
         } else {
           this.value.splice(inx, 1);
@@ -177,6 +180,25 @@ export default {
         }
         
         this.$emit('input', tmpTags);
+      }
+    },
+    getTags(mode = 'array') {
+      if (typeof this.value == 'undefined') {
+        return mode == 'array'
+          ? this.tags
+          : this.tags.join(",");
+      } else {
+        if (mode == 'array') {
+          var tags = typeof this.value == 'string'
+            ? this.value.split(",")
+            : this.value;
+        } else {
+          var tags = typeof this.value == 'string'
+            ? this.value
+            : this.value.join(",");
+        }
+
+        return tags;
       }
     }
   }
