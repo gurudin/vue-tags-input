@@ -64,6 +64,7 @@ export default {
     return {
       tags: [],
       currentValue: '',
+      modelType: 'array',
     };
   },
   computed: {
@@ -173,8 +174,10 @@ export default {
       if (typeof this.value == 'undefined') {
         this.tags = this.tags.concat(tagsArr);
       } else {
-        if (typeof this.value == 'string') {
-          var tmpTags = this.value + "," + tagsArr.join(",");
+        if (this.modelType == 'string') {
+          var tmpTags = this.value == null || this.value == ''
+            ? tagsArr.join(",")
+            : this.value + "," + tagsArr.join(",");
         } else {
           var tmpTags = this.value.concat(tagsArr);
         }
@@ -199,6 +202,23 @@ export default {
         }
 
         return tags;
+      }
+    },
+    clearTags() {
+      this.tags = [];
+      if (this.modelType == 'string') {
+        this.$emit('input', null);
+      } else {
+        this.$emit('input', []);
+      }
+    }
+  },
+  created() {
+    if (typeof this.value != 'undefined') {
+      if (typeof this.value == 'string') {
+        this.modelType = 'string';
+      } else {
+        this.modelType = 'array';
       }
     }
   }

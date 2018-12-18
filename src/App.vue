@@ -13,6 +13,7 @@
     <br>
     <button class="btn btn-info btn-sm" @click="setTags()">@setTags()</button>
     <button class="btn btn-info btn-sm" @click="getTags()">@getTags()</button>
+    <button class="btn btn-info btn-sm" @click="clearTags()">@clearTags()</button>
   </div>
 </template>
 
@@ -23,8 +24,8 @@ export default {
   name: 'App',
   data() {
     return {
-      // options: ['PHP', 'Javascript', 'Vue'],
-      options: 'PHP,JAVA,GO',
+      options: ['PHP', 'Javascript', 'Vue'],
+      // options: 'PHP,JAVA,GO',
     };
   },
   methods: {
@@ -35,6 +36,9 @@ export default {
       console.log(this.$refs.tags.getTags());
       console.log(this.$refs.tags.getTags('string'));
     },
+    clearTags() {
+      this.$refs.tags.clearTags();
+    }
   },
   components: {
     TagsInput
