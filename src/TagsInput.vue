@@ -85,9 +85,11 @@ export default {
         return this.tags;
       }
       
-      return typeof this.value == 'string'
-        ? this.value.split(",")
-        : this.value;
+      if (typeof this.value == 'string') {
+        return this.value == '' ? [] : this.value.split(",");
+      } else {
+        return this.value;
+      }
     },
     boxStyle() {
       return {
